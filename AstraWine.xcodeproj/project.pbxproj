@@ -9,21 +9,29 @@
 /* Begin PBXBuildFile section */
 		3E3E296527044D2100D98C8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E296427044D2100D98C8E /* AppDelegate.swift */; };
 		3E3E296727044D2100D98C8E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E296627044D2100D98C8E /* SceneDelegate.swift */; };
-		3E3E296927044D2100D98C8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E296827044D2100D98C8E /* ViewController.swift */; };
+		3E3E296927044D2100D98C8E /* ShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E296827044D2100D98C8E /* ShelfViewController.swift */; };
 		3E3E296C27044D2100D98C8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3E296A27044D2100D98C8E /* Main.storyboard */; };
 		3E3E296E27044D2D00D98C8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E3E296D27044D2D00D98C8E /* Assets.xcassets */; };
 		3E3E297127044D2D00D98C8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3E296F27044D2D00D98C8E /* LaunchScreen.storyboard */; };
+		3E3E298227044E1000D98C8E /* Wine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E298127044E1000D98C8E /* Wine.swift */; };
+		3E3E29872704558700D98C8E /* ShelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E29862704558700D98C8E /* ShelfCollectionViewCell.swift */; };
+		3E3E298B27048FF900D98C8E /* BottlesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E298A27048FF800D98C8E /* BottlesTableViewController.swift */; };
+		3E3E299C2704E9E200D98C8E /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E299B2704E9E200D98C8E /* SettingTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E3E296127044D2100D98C8E /* AstraWine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstraWine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3E296427044D2100D98C8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E3E296627044D2100D98C8E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3E3E296827044D2100D98C8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E3E296827044D2100D98C8E /* ShelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfViewController.swift; sourceTree = "<group>"; };
 		3E3E296B27044D2100D98C8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E3E296D27044D2D00D98C8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E3E297027044D2D00D98C8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E3E297227044D2D00D98C8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E3E298127044E1000D98C8E /* Wine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wine.swift; sourceTree = "<group>"; };
+		3E3E29862704558700D98C8E /* ShelfCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfCollectionViewCell.swift; sourceTree = "<group>"; };
+		3E3E298A27048FF800D98C8E /* BottlesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottlesTableViewController.swift; sourceTree = "<group>"; };
+		3E3E299B2704E9E200D98C8E /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,59 @@
 		3E3E296327044D2100D98C8E /* AstraWine */ = {
 			isa = PBXGroup;
 			children = (
-				3E3E296427044D2100D98C8E /* AppDelegate.swift */,
-				3E3E296627044D2100D98C8E /* SceneDelegate.swift */,
-				3E3E296827044D2100D98C8E /* ViewController.swift */,
-				3E3E296A27044D2100D98C8E /* Main.storyboard */,
+				3E3E29852704556700D98C8E /* UI */,
+				3E3E297F27044DDE00D98C8E /* Models */,
+				3E3E297927044D5100D98C8E /* App */,
+				3E3E297C27044D7800D98C8E /* Views */,
+				3E3E297B27044D6200D98C8E /* Storyboards */,
 				3E3E296D27044D2D00D98C8E /* Assets.xcassets */,
-				3E3E296F27044D2D00D98C8E /* LaunchScreen.storyboard */,
-				3E3E297227044D2D00D98C8E /* Info.plist */,
 			);
 			path = AstraWine;
+			sourceTree = "<group>";
+		};
+		3E3E297927044D5100D98C8E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				3E3E296427044D2100D98C8E /* AppDelegate.swift */,
+				3E3E296627044D2100D98C8E /* SceneDelegate.swift */,
+				3E3E297227044D2D00D98C8E /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3E3E297B27044D6200D98C8E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				3E3E296A27044D2100D98C8E /* Main.storyboard */,
+				3E3E296F27044D2D00D98C8E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		3E3E297C27044D7800D98C8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E3E296827044D2100D98C8E /* ShelfViewController.swift */,
+				3E3E298A27048FF800D98C8E /* BottlesTableViewController.swift */,
+				3E3E299B2704E9E200D98C8E /* SettingTableViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3E3E297F27044DDE00D98C8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3E3E298127044E1000D98C8E /* Wine.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3E3E29852704556700D98C8E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3E3E29862704558700D98C8E /* ShelfCollectionViewCell.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E3E296927044D2100D98C8E /* ViewController.swift in Sources */,
+				3E3E299C2704E9E200D98C8E /* SettingTableViewController.swift in Sources */,
+				3E3E29872704558700D98C8E /* ShelfCollectionViewCell.swift in Sources */,
+				3E3E298227044E1000D98C8E /* Wine.swift in Sources */,
+				3E3E296927044D2100D98C8E /* ShelfViewController.swift in Sources */,
 				3E3E296527044D2100D98C8E /* AppDelegate.swift in Sources */,
+				3E3E298B27048FF900D98C8E /* BottlesTableViewController.swift in Sources */,
 				3E3E296727044D2100D98C8E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,15 +344,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A988NJMD75;
-				INFOPLIST_FILE = AstraWine/Info.plist;
+				INFOPLIST_FILE = AstraWine/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.IvanovMA.AstraWine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -307,15 +364,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A988NJMD75;
-				INFOPLIST_FILE = AstraWine/Info.plist;
+				INFOPLIST_FILE = AstraWine/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.IvanovMA.AstraWine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
