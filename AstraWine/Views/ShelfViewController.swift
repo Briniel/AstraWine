@@ -14,28 +14,27 @@ protocol ChangeCellViewCollection {
 }
 
 class ShelfViewController: UICollectionViewController, ChangeCellViewCollection, UICollectionViewDelegateFlowLayout {
-    
-    @IBOutlet var editButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
     
     private let sizeCell = (UIScreen.main.bounds.width - 20) / 3
-    var shelfs: [Shelf]!
+    var shelfs: [Shelf] = []
     private var editMode = false
+    private let context = StorageManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        shelfs = Shelf.getShelfs()
+        shelfs = context.fetchData()
+        
         addButton.isEnabled = editMode
         addButton.tintColor = .clear
-        
     }
     
     @IBAction func editCell(_ sender: UIBarButtonItem) {
         editMode.toggle()
         
         let newEditButton = UIBarButtonItem(barButtonSystemItem: editMode ? .done : .edit,
-                                   target: self,
-                                   action: #selector(self.editCell(_:)))
+                                            target: self,
+                                            action: #selector(editCell(_:)))
         navigationItem.rightBarButtonItem = newEditButton
         
         if editMode {
@@ -49,34 +48,9 @@ class ShelfViewController: UICollectionViewController, ChangeCellViewCollection,
     }
     
     @IBAction func addCell(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(
-            title: "Добавить полку",
-            message: "Создадим новую полочку для винишка?",
-            preferredStyle: .alert)
-        
-        let actionAdd = UIAlertAction(title: "Добавить",
-                                      style: .default) { _ in
-            guard let name = alertController.textFields?.first?.text, name != "" else {
-                return
-            }
-            let shelf = Shelf(name: name)
-            self.shelfs.append(shelf)
-            self.collectionView.reloadData()
-        }
-        
-        let actionCancel = UIAlertAction(title: "Отмена", style: .default)
-        
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Введите название полки"
-        }
-        
-        alertController.addAction(actionAdd)
-        alertController.addAction(actionCancel)
-        present(alertController, animated: true)
+        showAlert(action: .save)
     }
 
-    
     // MARK: - Навигация по переходам
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,12 +66,11 @@ class ShelfViewController: UICollectionViewController, ChangeCellViewCollection,
         return !editMode
     }
 
-    
     // MARK: - Работа с элементами СollectionView
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         shelfs.count
     }
-    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "shelf", for: indexPath) as! ShelfCollectionViewCell
@@ -119,81 +92,51 @@ class ShelfViewController: UICollectionViewController, ChangeCellViewCollection,
         return size
     }
     
-    
     // MARK: - Реализация протокола ChangeCellViewCollection
-    private func editPopUP(index: Int) {
-        let alertController = UIAlertController(
-            title: "Переименовать \(shelfs[index].name)?",
-            message: "",
-            preferredStyle: .alert)
-        
-        let actionAdd = UIAlertAction(title: "Добавить",
-                                      style: .default) { _ in
-            guard let name = alertController.textFields?.first?.text, name != "" else {
-                return
-            }
-            
-            self.shelfs[index].name = name
-            self.collectionView.reloadData()
-        }
-        
-        let actionCancel = UIAlertAction(title: "Отмена", style: .default)
-        
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Введите название полки"
-        }
-        
-        alertController.addAction(actionAdd)
-        alertController.addAction(actionCancel)
-        present(alertController, animated: true)
-    }
     
     func delete(from index: Int) {
-        let alertController = UIAlertController(
-            title: "Удалить \(shelfs[index].name)?",
-            message: "Вы действительно хотите удалить \(shelfs[index].name)?",
-            preferredStyle: .alert)
-        
-        let actionDelete = UIAlertAction(title: "Удалить",
-                                      style: .default) { _ in
-            self.shelfs.remove(at: index)
-            self.collectionView.reloadData()
-        }
-        
-        let actionCancel = UIAlertAction(title: "Нет", style: .destructive)
-        
-        alertController.addAction(actionDelete)
-        alertController.addAction(actionCancel)
-        present(alertController, animated: true)
+        showAlert(action: .delete, with: shelfs[index], from: index)
     }
     
     func editCell(from index: Int) {
-        let alertController = UIAlertController(
-            title: "Переименовать \(shelfs[index].name)?",
-            message: "",
-            preferredStyle: .alert)
-        
-        let actionAdd = UIAlertAction(title: "Изменить",
-                                      style: .default) { _ in
-            guard let name = alertController.textFields?.first?.text, name != "" else {
-                return
-            }
-            
-            self.shelfs[index].name = name
-            self.collectionView.reloadData()
-        }
-        
-        let actionCancel = UIAlertAction(title: "Отмена", style: .default)
-        
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Введите название полки"
-        }
-        
-        alertController.addAction(actionAdd)
-        alertController.addAction(actionCancel)
-        present(alertController, animated: true)
+        showAlert(action: .change, with: shelfs[index])
     }
-    
+}
+
+extension ShelfViewController {
+    private func showAlert(action: ButtonAlert, with shelf: Shelf? = nil, from index: Int? = 0) {
+        let titleAlert: String
+        
+        switch action {
+        case .save:
+            titleAlert = "Создать новую полку"
+        case .change:
+            titleAlert = "Переименавать \(shelf?.name ?? "полку")?"
+        case .delete:
+            titleAlert = "Удалить \(shelf?.name ?? "полку")?"
+        }
+        
+        let alert = AlertController.createAlert(withTitle: titleAlert, andMessage: "")
+        
+        alert.action(action: action, with: shelf) { [unowned self] newValue in
+            switch action {
+            case .save:
+                context.saveShelf(newValue) { [unowned self] shelf in
+                    shelfs.append(shelf)
+                }
+            case .change:
+                guard let shelf = shelf else { return }
+                context.editShelf(shelf, newName: newValue)
+            case .delete:
+                guard let index = index else {
+                    return
+                }
+
+                context.deleteShelf(self.shelfs.remove(at: index))
+            }
+            collectionView.reloadData()
+        }
+        
+        present(alert, animated: true)
+    }
 }

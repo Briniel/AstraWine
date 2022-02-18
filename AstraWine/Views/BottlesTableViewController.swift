@@ -8,53 +8,44 @@
 import UIKit
 
 class BottlesTableViewController: UITableViewController {
-    
     var shelf: Shelf!
-
+    private let context = StorageManager.shared
+    private var bottles: [Bottle]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        bottles = shelf.bottles?.allObjects as? [Bottle]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let infoBottleVC = segue.destination as? InfoBottleTableViewController else { return }
+        guard let index = tableView.indexPathForSelectedRow?.first else {
+            return
+        }
+
+        infoBottleVC.bottle = bottles[index]
     }
 
     @IBAction func addBottle(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(
-            title: "Добавим винишко?",
-            message: "Введите название вина, которое Вы ходите добавить",
-            preferredStyle: .alert)
-        
-        let actionAdd = UIAlertAction(title: "Добавить",
-                                      style: .default) { _ in
-            guard let name = alertController.textFields?.first?.text, name != "" else {
-                return
-            }
-            let newBottle = Bottle(name: name)
-            self.shelf.bottle.append(newBottle)
-            self.tableView.reloadData()
-        }
-        
-        let actionCancel = UIAlertAction(title: "Отмена", style: .default)
-        
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Введите название вина"
-        }
-        
-        alertController.addAction(actionAdd)
-        alertController.addAction(actionCancel)
-        present(alertController, animated: true)
+        showAlert()
     }
-    
     
     // MARK: - Работа с элементами таблицы
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        shelf.bottle.count
+        return bottles.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bottleID", for: indexPath)
 
         var content = cell.defaultContentConfiguration()
-        let bottle = shelf.bottle[indexPath.row]
+        let bottle = bottles[indexPath.row]
 
         content.text = bottle.name
 
@@ -66,8 +57,25 @@ class BottlesTableViewController: UITableViewController {
         guard editingStyle == .delete else {
             return
         }
-        
-        shelf.bottle.remove(at: indexPath.row)
+
+        context.deletBottle(bottles.remove(at: indexPath.row))
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
+}
+
+extension BottlesTableViewController {
+    
+    private func showAlert() {
+        let alert = AlertController.createAlert(withTitle: "Добавить новое вино", andMessage: "")
+        
+        alert.action { [unowned self] newValue in
+            context.saveBottle(newValue, to: self.shelf) { [unowned self] bottle in
+                bottles.append(bottle)
+                tableView.reloadData()
+            }
+        }
+        
+        present(alert, animated: true)
+    }
+    
 }

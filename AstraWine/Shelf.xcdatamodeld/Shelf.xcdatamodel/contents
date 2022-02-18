@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Bottle" representedClassName="Bottle" syncable="YES" codeGenerationType="class">
+        <attribute name="appearance" optional="YES" attributeType="String"/>
+        <attribute name="colorWine" optional="YES" attributeType="String"/>
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="dateHarvest" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dateTasting" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distributor" optional="YES" attributeType="String"/>
+        <attribute name="flowTemp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fortressWine" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="gastronomicCompanions" optional="YES" attributeType="String"/>
+        <attribute name="grapeSort" optional="YES" attributeType="String"/>
+        <attribute name="manufacturer" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="placeOfPurchase" optional="YES" attributeType="String"/>
+        <attribute name="placeTasting" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="region" optional="YES" attributeType="String"/>
+        <attribute name="scent" optional="YES" attributeType="String"/>
+        <attribute name="storagePotential" optional="YES" attributeType="String"/>
+        <attribute name="taste" optional="YES" attributeType="String"/>
+        <relationship name="shelf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shelf" inverseName="bottles" inverseEntity="Shelf"/>
+    </entity>
+    <entity name="Shelf" representedClassName="Shelf" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="bottles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bottle" inverseName="shelf" inverseEntity="Bottle"/>
+    </entity>
+    <elements>
+        <element name="Bottle" positionX="122.4434814453125" positionY="70.5526123046875" width="128" height="374"/>
+        <element name="Shelf" positionX="-63" positionY="-18" width="128" height="73"/>
+    </elements>
+</model>
